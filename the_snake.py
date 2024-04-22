@@ -143,50 +143,47 @@ class Snake(GameObject):
         Это сделано, чтобы змейка выходила с противоположной стороны поля.
         """
         head = self.get_head_position()
-        if self.length:
-            if len(self.positions) > self.length:
-                self.positions.pop()
-            else:
-                if self.direction == RIGHT:
-                    if head[0] == SCREEN_WIDTH:
-                        self.positions.insert(0, (0, self.positions[0][1]))
-                    else:
-                        dx, dy = head  # Распаковка кортежа/головы змейки
-                        dxr, dyr = RIGHT  # Распаковка кортежа/направления
-                        self.positions.insert(0, ((dx + dxr * GRID_SIZE),
-                                                  (dy + dyr * GRID_SIZE)))
 
-                elif self.direction == LEFT:
-                    if head[0] == 0:
-                        self.positions.insert(0, (SCREEN_WIDTH,
-                                                  self.positions[0][1]))
+        if len(self.positions) > self.length:
+            self.positions.pop()
+        else:
+            if self.direction == RIGHT:
+                if head[0] == SCREEN_WIDTH:
+                    self.positions.insert(0, (0, self.positions[0][1]))
+                else:
+                    dx, dy = head  # Распаковка кортежа/головы змейки
+                    dxr, dyr = RIGHT  # Распаковка кортежа/направления
+                    self.positions.insert(0, ((dx + dxr * GRID_SIZE),
+                                              (dy + dyr * GRID_SIZE)))
 
-                    else:
-                        dx, dy = head  # Распаковка кортежа/головы змейки
-                        dxl, dyl = LEFT  # Распаковка кортежа/направления
-                        self.positions.insert(0, ((dx + dxl * GRID_SIZE),
-                                                  (dy + dyl * GRID_SIZE)))
+            elif self.direction == LEFT:
+                if head[0] == 0:
+                    self.positions.insert(0, (SCREEN_WIDTH,
+                                              self.positions[0][1]))
+                else:
+                    dx, dy = head  # Распаковка кортежа/головы змейки
+                    dxl, dyl = LEFT  # Распаковка кортежа/направления
+                    self.positions.insert(0, ((dx + dxl * GRID_SIZE),
+                                              (dy + dyl * GRID_SIZE)))
 
-                elif self.direction == UP:
-                    if head[1] == 0:
-                        self.positions.insert(0, (self.positions[0][0],
-                                                  SCREEN_HEIGHT))
+            elif self.direction == UP:
+                if head[1] == 0:
+                    self.positions.insert(0, (self.positions[0][0],
+                                              SCREEN_HEIGHT))
+                else:
+                    dx, dy = head  # Распаковка кортежа/головы змейки
+                    dxu, dyu = UP  # Распаковка кортежа/направления
+                    self.positions.insert(0, ((dx + dxu * GRID_SIZE),
+                                              (dy + dyu * GRID_SIZE)))
 
-                    else:
-                        dx, dy = head  # Распаковка кортежа/головы змейки
-                        dxu, dyu = UP  # Распаковка кортежа/направления
-                        self.positions.insert(0, ((dx + dxu * GRID_SIZE),
-                                                  (dy + dyu * GRID_SIZE)))
-
-                elif self.direction == DOWN:
-                    if head[1] == SCREEN_HEIGHT:
-                        self.positions.insert(0, (self.positions[0][0], 0))
-
-                    else:
-                        dx, dy = head  # Распаковка кортежа/головы змейки
-                        dxd, dyd = DOWN  # Распаковка кортежа/направления
-                        self.positions.insert(0, ((dx + dxd * GRID_SIZE),
-                                                  (dy + dyd * GRID_SIZE)))
+            elif self.direction == DOWN:
+                if head[1] == SCREEN_HEIGHT:
+                    self.positions.insert(0, (self.positions[0][0], 0))
+                else:
+                    dx, dy = head  # Распаковка кортежа/головы змейки
+                    dxd, dyd = DOWN  # Распаковка кортежа/направления
+                    self.positions.insert(0, ((dx + dxd * GRID_SIZE),
+                                              (dy + dyd * GRID_SIZE)))
 
     def reset(self):
         """Метод, который сбрасывает параметры змейки."""
