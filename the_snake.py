@@ -28,7 +28,7 @@ APPLE_COLOR = (255, 0, 0)
 SNAKE_COLOR = (0, 255, 0)
 
 # Скорость движения змейки:
-SPEED = 20
+SPEED = 10
 
 # Центр экрана.
 SCREEN_CENTER = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
@@ -120,11 +120,10 @@ class Snake(GameObject):
 
         if len(self.positions) > self.length:
             self.positions.pop()
-        else:
-            dx, dy = head  # Распаковка кортежа/головы змейки
-            dxr, dyr = self.direction  # Распаковка кортежа/направления
-            self.positions.insert(0, ((dx + dxr * GRID_SIZE) % SCREEN_WIDTH,
-                                      (dy + dyr * GRID_SIZE) % SCREEN_HEIGHT))
+        dx, dy = head  # Распаковка кортежа/головы змейки
+        dxr, dyr = self.direction  # Распаковка кортежа/направления
+        self.positions.insert(0, ((dx + dxr * GRID_SIZE) % SCREEN_WIDTH,
+                                  (dy + dyr * GRID_SIZE) % SCREEN_HEIGHT))
 
     def reset(self):
         """Метод, который сбрасывает параметры змейки."""
@@ -168,8 +167,8 @@ def main():
     # Инициализация PyGame:
     pg.init()
     # Тут нужно создать экземпляры классов.
-    apple = Apple()
     snake = Snake()
+    apple = Apple(snake.positions)
     while True:
         clock.tick(SPEED)
         handle_keys(snake)
@@ -179,7 +178,6 @@ def main():
         if snake.positions[0] == apple.position:
             apple.randomize_position(snake.positions)
             snake.length += 1
-            apple.draw()
         elif snake.get_head_position() in snake.positions[1:]:
             snake.reset()
             apple.randomize_position(snake.positions)
